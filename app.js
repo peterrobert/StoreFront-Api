@@ -1,16 +1,9 @@
 const express = require('express');
-const mongoose = require('mongoose');
-
-//=== Initialize the app.
+// === Custom modules
+const db = require('./server')
+//=== Initialize the database and app.
+db()
 const app = express();
-
-//=== Connect to database.
-mongoose.connect('mongodb://localhost/storefront', (err) => {
-    if (err) {
-        console.log(err)
-    }
-    console.log('database connection succesful')
-})
 
 // ====Home route
 
