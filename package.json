@@ -1,0 +1,30 @@
+{
+  "name": "storefront-api",
+  "version": "1.0.0",
+  "description": "This is an Api for an ecommerce store",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/peterrobert/StoreFront-Api.git"
+  },
+  "keywords": [
+    "nodejs",
+    "express",
+    "mongodb"
+  ],
+  "author": "peter robert",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/peterrobert/StoreFront-Api/issues"
+  },
+  "homepage": "https://github.com/peterrobert/StoreFront-Api#readme",
+  "dependencies": {
+    "express": "^4.17.1",
+    "joi": "^13.0.0",
+    "mongoose": "^5.13.0",
+    "nodemon": "^2.0.9"
+  }
+}
