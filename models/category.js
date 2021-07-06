@@ -11,6 +11,16 @@ const categorySchema = mongoose.Schema({
     },
 })
 
+const Category = mongoose.model('category', categorySchema);
+// ==== Validation
+const categoryValidation = (obj) => {
+    const schema = {
+        name: Joi.string().required().min(3).max(255)
+    }
+    Joi.validate(obj, schema)
+}
 
 
 exports.categorySchema = categorySchema;
+exports.Category = Category;
+exports.categoryValidation = categoryValidation;
