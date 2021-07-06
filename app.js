@@ -1,16 +1,14 @@
 const express = require('express');
 // === Custom modules
-const db = require('./server')
+const db = require('./database')
 //=== Initialize the database and app.
 db()
 const app = express();
 
 // ====Home route
-
 app.get('/', (req, res) => {
     res.send("welcome to home")
 })
-
 
 //=== Server.
 const PORT = process.env.PORT || 3000;
