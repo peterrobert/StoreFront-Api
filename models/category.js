@@ -12,12 +12,13 @@ const categorySchema = mongoose.Schema({
 })
 
 const Category = mongoose.model('category', categorySchema);
+
 // ==== Validation
 const categoryValidation = (obj) => {
     const schema = {
         name: Joi.string().required().min(3).max(255)
     }
-    Joi.validate(obj, schema)
+  return Joi.validate(obj, schema)
 }
 
 
