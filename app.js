@@ -1,23 +1,14 @@
 const express = require('express');
-const mongoose = require('mongoose');
-
-//=== Initialize the app.
+// === Custom modules
+const db = require('./database')
+//=== Initialize the database and app.
+db()
 const app = express();
 
-//=== Connect to database.
-mongoose.connect('mongodb://localhost/storefront', (err) => {
-    if (err) {
-        console.log(err)
-    }
-    console.log('database connection succesful')
-})
-
 // ====Home route
-
 app.get('/', (req, res) => {
     res.send("welcome to home")
 })
-
 
 //=== Server.
 const PORT = process.env.PORT || 3000;
