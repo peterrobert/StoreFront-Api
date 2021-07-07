@@ -42,7 +42,7 @@ Router.get('/:id', async (req, res) => {
 Router.put('/:id', (req, res) => {
     const updateCategory = async (obj) => {
         try {
-            const data = Category.findByIdAndUpdate(req.params.id, obj, { new: true });
+            const data = await Category.findByIdAndUpdate(req.params.id, obj, { new: true });
             res.status(201).send(data);
         } catch (error) {
             res.status(404).send("There is no category with that ID")
