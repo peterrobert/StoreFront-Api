@@ -28,7 +28,7 @@ const productValidation = (obj) => {
         price: Joi.string().required().min(0),
         categoryID: Joi.objectId().required()
     }
-    Joi.validate(obj, schema)
+  return Joi.validate(obj, schema)
 }
 
 

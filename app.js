@@ -1,6 +1,7 @@
 const express = require('express');
 // === Custom modules
 const db = require('./database')
+const categoriesRoutes = require('./routes/category')
 //=== Initialize the database and app.
 db()
 const app = express();
@@ -9,6 +10,10 @@ const app = express();
 app.get('/', (req, res) => {
     res.send("welcome to home")
 })
+
+// middle ware
+app.use(express.json());
+app.use('/api/categories', categoriesRoutes)
 
 //=== Server.
 const PORT = process.env.PORT || 3000;
