@@ -30,11 +30,34 @@ Router.post('/', (req, res) => {
 })
 
 Router.get('/:id', async (req, res) => {
-    const category = await Category.findById(req.params.id);
-    if(!category) return res.status(404).send("There is no category with that specific ID");
-    res.status(200).send(category)
+    try {
+        const category = await Category.findById(req.params.id);
+        if (!category) return res.status(404).send("There is no category with that specific ID");
+        res.status(200).send(category)
+    } catch (error) {
+        res.send(error.message)
+    }
 })
 
+Router.put('/:id', (req, res) => {
+    const updateCategory = async (obj) => {
+        try {
+            const data = Category.findByIdAndUpdate(req.params.id, obj, { new: true });
+            res.status(201).send(data);
+        } catch (error) {
+            res.status(404).send("There is no category with that ID")
+        }
+    }
+
+    // ===== Validate user input
+    let results = categoryValidation(req.body);
+    results.then((data) => {
+        updateCategory(data)
+    }).catch((err) => {
+        res.status(404).send(err.details[0].message)
+    })
+
+})
 
 
 module.exports = Router
