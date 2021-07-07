@@ -14,6 +14,9 @@ Router.get('/', async (req, res) => {
 })
 
 Router.post('/:categoryID', (req, res) => {
+    
+      
+    // ==== VALIDATION
 
 })
 
