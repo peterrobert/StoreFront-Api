@@ -2,13 +2,25 @@ const express = require('express');
 const Router = express.Router();
 // == Custom modules;
 const { Product, productValidation } = require('../models/product');
-const {Category} = require('../models/category')
+const { Category } = require('../models/category')
 
 Router.get('/', async (req, res) => {
     try {
         const results = await Product.find();
         if (results.length < 1) return res.status(200).send('There are no products yet');
         res.status(200).send(results)
+    } catch (error) {
+        res.send(error.message)
+    }
+})
+
+Router.get('/:categoryID', async (req, res) => {
+    try {
+        const product = await Product.find({
+            "category._id": req.params.categoryID
+        });
+        if (product.length < 1) return res.status(200).send("There are no products in this category");
+        res.status(200).send(product);
     } catch (error) {
         res.send(error.message)
     }
