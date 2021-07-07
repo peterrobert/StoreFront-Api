@@ -6,7 +6,6 @@ const { Category, categoryValidation } = require('../models/category');
 Router.get('/', async (req, res) => {
     const categories = await Category.find();
     if (categories.length < 1) return res.status(200).send('There are no categories at the moment');
-
     res.status(200).send(categories)
 })
 
