@@ -59,5 +59,14 @@ Router.put('/:id', (req, res) => {
 
 })
 
+Router.delete('/:id', async(req, res) => {
+     try {
+        const results = await  Category.findByIdAndDelete(req.params.id);
+        res.status(200).send("Deleted successfully")
+     } catch (error) {
+        res.send(error.message)
+     }
+})
+
 
 module.exports = Router
