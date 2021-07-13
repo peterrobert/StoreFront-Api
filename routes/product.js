@@ -86,7 +86,7 @@ Router.put('/:categoryID/:ID', (req, res) => {
         price: req.body.price,
         categoryID: req.params.categoryID,
     }
-    
+
     productValidation(obj).then((data) => {
         updateProduct(data)
     }).catch((err) => {
@@ -99,7 +99,9 @@ Router.put('/:categoryID/:ID', (req, res) => {
 // == DELETE PRODUCT ==
 
 Router.delete('/:categoryID/:ID', async(req, res,) => {
-
+     const results = await Product.findOneAndDelete(req.params.ID);
+     if(!results) return res.status(404).send("There is no product with that specific ID");
+     res.status(200).send("The product is deleted successfully");
 })
 
 module.exports = Router
