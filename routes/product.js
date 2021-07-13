@@ -71,11 +71,23 @@ Router.get('/:categoryID/:ID',  async (req, res) => {
 // == UPDATE ==
 Router.put('/:categoryID/:ID', (req, res) => {
     const updateProduct = async (obj) => {
-      
+        try {
+            const results = await Product.findByIdAndUpdate(req.params.ID, obj,{new: true});
+            if(!results) return res.status(404).send("There is no product with that given ID");
+            res.status(200).send(results);
+        } catch (error) {
+            console.log(error)
+        }
     }
 
     // == VALIDATION ==
-    productValidation(req.body).then((data) => {
+    const obj = {
+        name: req.body.name,
+        price: req.body.price,
+        categoryID: req.params.categoryID,
+    }
+    
+    productValidation(obj).then((data) => {
         updateProduct(data)
     }).catch((err) => {
         res.status(404).send(err.details[0].message)
@@ -83,5 +95,11 @@ Router.put('/:categoryID/:ID', (req, res) => {
 
 })
 
+
+// == DELETE PRODUCT ==
+
+Router.delete('/:categoryID/:ID', async(req, res,) => {
+
+})
 
 module.exports = Router
