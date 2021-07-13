@@ -4,6 +4,7 @@ const Router = express.Router();
 const { Product, productValidation } = require('../models/product');
 const { Category } = require('../models/category')
 
+// == GET ALL PRODUCT ==
 Router.get('/', async (req, res) => {
     try {
         const results = await Product.find();
@@ -14,6 +15,7 @@ Router.get('/', async (req, res) => {
     }
 })
 
+// == SORT THE PRODUCT WITH A CATEGORY ===
 Router.get('/:categoryID', async (req, res) => {
     try {
         const product = await Product.find({
@@ -26,6 +28,7 @@ Router.get('/:categoryID', async (req, res) => {
     }
 })
 
+// == CREATE NEW PRODUCT ==
 Router.post('/:categoryID', (req, res) => {
 
     const createProduct = async (obj) => {
@@ -53,5 +56,52 @@ Router.post('/:categoryID', (req, res) => {
     })
 })
 
+// == SHOW ==
+Router.get('/:categoryID/:ID',  async (req, res) => {
+
+    try {
+        const results = await Product.findById(req.params.ID);
+        if(!results) return res.status(404).send("There is no product with that given ID");
+        res.status(200).send(results);
+    } catch (error) {
+        console.log(error)
+    }
+})
+
+// == UPDATE ==
+Router.put('/:categoryID/:ID', (req, res) => {
+    const updateProduct = async (obj) => {
+        try {
+            const results = await Product.findByIdAndUpdate(req.params.ID, obj,{new: true});
+            if(!results) return res.status(404).send("There is no product with that given ID");
+            res.status(200).send(results);
+        } catch (error) {
+            console.log(error)
+        }
+    }
+
+    // == VALIDATION ==
+    const obj = {
+        name: req.body.name,
+        price: req.body.price,
+        categoryID: req.params.categoryID,
+    }
+
+    productValidation(obj).then((data) => {
+        updateProduct(data)
+    }).catch((err) => {
+        res.status(404).send(err.details[0].message)
+    })
+
+})
+
+
+// == DELETE PRODUCT ==
+
+Router.delete('/:categoryID/:ID', async(req, res,) => {
+     const results = await Product.findOneAndDelete(req.params.ID);
+     if(!results) return res.status(404).send("There is no product with that specific ID");
+     res.status(200).send("The product is deleted successfully");
+})
 
 module.exports = Router
