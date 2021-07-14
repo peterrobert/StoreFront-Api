@@ -3,6 +3,7 @@ const Router = express.Router();
 // == Custom modules;
 const { Product, productValidation } = require('../models/product');
 const { Category } = require('../models/category')
+const auth = require('../middleware/authentication')
 
 // == GET ALL PRODUCT ==
 Router.get('/', async (req, res) => {
