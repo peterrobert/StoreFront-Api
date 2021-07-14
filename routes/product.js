@@ -3,6 +3,7 @@ const Router = express.Router();
 // == Custom modules;
 const { Product, productValidation } = require('../models/product');
 const { Category } = require('../models/category')
+const auth = require('../middleware/authentication')
 
 // == GET ALL PRODUCT ==
 Router.get('/', async (req, res) => {
@@ -29,7 +30,7 @@ Router.get('/:categoryID', async (req, res) => {
 })
 
 // == CREATE NEW PRODUCT ==
-Router.post('/:categoryID', (req, res) => {
+Router.post('/:categoryID', auth,  (req, res) => {
 
     const createProduct = async (obj) => {
         const category = await Category.findById(obj.categoryID)
