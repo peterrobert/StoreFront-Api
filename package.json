@@ -23,6 +23,7 @@
   },
   "homepage": "https://github.com/peterrobert/StoreFront-Api#readme",
   "dependencies": {
+    "bcrypt": "^5.0.1",
     "express": "^4.17.1",
     "joi": "^13.0.0",
     "joi-objectid": "^3.0.1",
