@@ -4,6 +4,7 @@ const bcrypt = require('bcrypt');
 
 // === CUSTOM MODULES ===
 const { userValidation, User } = require('../models/user');
+const generateToken = require('../logic')
 // ==== SALT ROUNDS
 const saltRounds = 10;
 
@@ -24,12 +25,9 @@ Router.post('/', (req, res) => {
         try {
             const user = new User(userObj);
             const results = await user.save();
-            res.status(201).send({
-                id: results._id,
-                firstname: results.firstname,
-                lastname: results.lastname,
-                email: results.email
-            })
+            const token = generateToken(results);
+
+            req.header('x-auth-token', token)
         } catch (error) {
             console.log(error)
         }
