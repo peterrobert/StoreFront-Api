@@ -1,6 +1,7 @@
 const express = require('express');
 const Router = express.Router();
 const bcrypt = require('bcrypt');
+const _ = require('lodash');
 
 // === CUSTOM MODULES ===
 const { userValidation, User } = require('../models/user');
@@ -26,8 +27,7 @@ Router.post('/', (req, res) => {
             const user = new User(userObj);
             const results = await user.save();
             const token = generateToken(results);
-
-            req.header('x-auth-token', token)
+            res.header('x-auth-token', token).send(_.pick(results, ['_id', 'firstname', 'lastname', 'email']))
         } catch (error) {
             console.log(error)
         }
