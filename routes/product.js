@@ -30,7 +30,7 @@ Router.get('/:categoryID', async (req, res) => {
 })
 
 // == CREATE NEW PRODUCT ==
-Router.post('/:categoryID', auth,  (req, res) => {
+Router.post('/:categoryID', (req, res) => {
 
     const createProduct = async (obj) => {
         const category = await Category.findById(obj.categoryID)
