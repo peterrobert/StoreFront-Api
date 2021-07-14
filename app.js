@@ -3,6 +3,8 @@ const express = require('express');
 const db = require('./database')
 const categoriesRoutes = require('./routes/category')
 const productRoutes = require('./routes/product')
+const registerUser = require('./routes/registration');
+const auth = require('./routes/auth')
 //=== Initialize the database and app.
 db()
 const app = express();
@@ -14,7 +16,10 @@ app.get('/', (req, res) => {
 // middle ware
 app.use(express.json());
 app.use('/api/categories', categoriesRoutes);
-app.use('/api/products', productRoutes)
+app.use('/api/products', productRoutes);
+app.use('/api/signUp', registerUser);
+app.use('/api/auth', auth);
+
 
 //=== Server.
 const PORT = process.env.PORT || 3000;
